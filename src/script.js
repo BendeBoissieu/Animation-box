@@ -51,9 +51,9 @@ loader.load(
 	function ( gltf ) {
         lead =  gltf.scene
         lead.position.set(0,0.015, 0 )
-        gui.add(lead.position, 'x').min(-2).max(2).step(0.01)
-        gui.add(lead.position, 'y').min(-2).max(2).step(0.01)
-        gui.add(lead.position, 'z').min(-2).max(2).step(0.01)
+        // gui.add(lead.position, 'x').min(-2).max(2).step(0.01)
+        // gui.add(lead.position, 'y').min(-2).max(2).step(0.01)
+        // gui.add(lead.position, 'z').min(-2).max(2).step(0.01)
         lead.scale.set(1,1,1)
 		scene.add( lead );
 	},
@@ -104,8 +104,11 @@ loader.load(
 	function ( gltf ) {
         notebook =  gltf.scene
         notebook.rotation.set(0.1,-1.55,0 )
-        notebook.position.set(0.07,0.04, 0 )
+        notebook.position.set(0.07,0.05, 0.05 )
         notebook.scale.set(0.08,0.08,0.08)
+        // gui.add(notebook.position, 'x').min(-20).max(20).step(0.01)
+        // gui.add(notebook.position, 'y').min(-20).max(20).step(0.01)
+        // gui.add(notebook.position, 'z').min(-20).max(20).step(0.01)
 		scene.add( notebook );
 	},
 	// called while loading is progressing
@@ -122,16 +125,59 @@ loader.load(
 	}
 );
 
+var cloth;
+loader.load(
+	// resource URL
+	'folded_cloth.gltf',
+	// called when the resource is loaded
+	function ( gltf ) {
+        cloth =  gltf.scene
+        cloth.rotation.set(0.1,6.27,0 )
+        cloth.position.set(-0.04,-0.01, 0.16)
+        cloth.scale.set(0.7,.7,0.7)
+		scene.add( cloth );
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+// const geometry = new THREE.SphereGeometry( 0.3, 32, 16 );
+// const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+// const sphere = new THREE.Mesh( geometry, material );
+// sphere.position.set(0.29,-0.58, -0.14 )
+// gui.add(sphere.position, 'x').min(-20).max(20).step(0.01)
+// gui.add(sphere.position, 'y').min(-20).max(20).step(0.01)
+// gui.add(sphere.position, 'z').min(-20).max(20).step(0.01)
+// scene.add( sphere );
 
 // Lights
-const light = new THREE.AmbientLight( 0x404040 ); // soft white light
-scene.add( light );
-const pointLight = new THREE.PointLight(0xffffff, 0.8)
-pointLight.position.x = 0
-pointLight.position.y = 5
-pointLight.position.z = 4
+//const light = new THREE.AmbientLight( 0xfaf7f7 ); // soft white light
+//scene.add( light );
+const pointLight = new THREE.PointLight(0xfcfcdf, 1.85)
+pointLight.position.x = -1.88
+pointLight.position.y = 6.36
+pointLight.position.z = 5.06
 scene.add(pointLight)
 
+const pointLight2 = new THREE.PointLight(0xfcfcdf, 1.85)
+pointLight2.position.x = 3.76
+pointLight2.position.y = 2.89
+pointLight2.position.z = 5.06
+// gui.add(pointLight2.position, 'x').min(-20).max(20).step(0.01)
+// gui.add(pointLight2.position, 'y').min(-20).max(20).step(0.01)
+// gui.add(pointLight2.position, 'z').min(-20).max(20).step(0.01)
+// gui.add(pointLight2, 'intensity').min(-2).max(5).step(0.01)
+scene.add(pointLight2)
 /**
  * Sizes
  */
@@ -225,14 +271,16 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         const ry2 = (window.pageYOffset - 200) / 3000
 
         rotationBoxY = 1.685*ry2
-        notebookX = 0.07 + 0.4*ry2
+        notebookX = 0.07 + 2*ry2
         mugX = -0.27 - 0.01*ry2
         notebookRotationX = 0.1 + 0.8*ry2
         lead.rotation.set(0.3*ry2,rotationBoxY, 0 )
         box.rotation.set(0.3*ry2,rotationBoxY, 0 )
-        notebook.position.set(notebookX ,0.04 - 0.4*ry2, 0.2*ry2 )
+        cloth.position.set(-0.04- 0.05*ry ,-0.01 - 0.2*ry,  0.16 )
+        cloth.rotation.set(0.1 -0.6*ry2 ,6.27,  0 )
+        notebook.position.set(notebookX- 1.7*ry2,0.05 - 0.2*ry2, 0.05+ 0.2*ry2 )
         notebook.rotation.set(notebookRotationX,-1.55, notebook.rotation.z )
-        notebook.scale.set(0.08+0.05*ry2,0.08+0.05*ry2,0.08+0.05*ry2)
+        notebook.scale.set(0.08+0.01*ry2,0.08+0.01*ry2,0.08+0.01*ry2)
         mug.position.set(mugX, 0.01+0.1*ry2 , 0.1+0.4*ry2)
         mug.rotation.set(-1.1*ry2 ,1*ry2, 0)
         camera.position.set(0, 0.64-0.4*ry2,0.46)
@@ -243,3 +291,5 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  }
  
  animate()
+//  cloth.rotation.set(0.1,6.27,0 )
+//  cloth.position.set(-0.04,-0.01, 0.16)
