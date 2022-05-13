@@ -1,7 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-//import * as dat from 'dat.gui'
+import * as dat from 'dat.gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { CubeReflectionMapping } from 'three'
 
@@ -27,6 +27,13 @@ loader.load(
 	function ( gltf ) {
         box = gltf.scene
         box.scale.set(1,1,1)
+        gltf.scene.traverse( function ( node ) {
+
+            if ( node.isMesh || node.isLight ) node.receiveShadow = true;
+            
+
+        } );
+        
 		scene.add( box );
 	},
 	// called while loading is progressing
@@ -55,6 +62,11 @@ loader.load(
         // gui.add(lead.position, 'x').min(-2).max(2).step(0.01)
         // gui.add(lead.position, 'y').min(-2).max(2).step(0.01)
         // gui.add(lead.position, 'z').min(-2).max(2).step(0.01)
+        gltf.scene.traverse( function ( node ) {
+
+            if ( node.isMesh || node.isLight ) node.castShadow = true;
+
+        } );
         lead.scale.set(1,1,1)
 		scene.add( lead );
 	},
@@ -81,6 +93,11 @@ loader.load(
         mug =  gltf.scene
         mug.position.set(-0.27,0.01, 0.1 )
         mug.scale.set(1,1,1)
+        gltf.scene.traverse( function ( node ) {
+
+            if ( node.isMesh || node.isLight ) node.castShadow = true;
+
+        } );
 		scene.add( mug );
 	},
 	// called while loading is progressing
@@ -107,6 +124,11 @@ loader.load(
         notebook.rotation.set(0.1,-1.55,0 )
         notebook.position.set(0.07,0.05, 0.05 )
         notebook.scale.set(0.08,0.08,0.08)
+        gltf.scene.traverse( function ( node ) {
+
+            if ( node.isMesh || node.isLight ) node.castShadow = true;
+
+        } );
         // gui.add(notebook.position, 'x').min(-20).max(20).step(0.01)
         // gui.add(notebook.position, 'y').min(-20).max(20).step(0.01)
         // gui.add(notebook.position, 'z').min(-20).max(20).step(0.01)
@@ -136,6 +158,13 @@ loader.load(
         cloth.rotation.set(0.1,6.27,0 )
         cloth.position.set(-0.04,-0.01, 0.16)
         cloth.scale.set(0.7,.7,0.7)
+        gltf.scene.traverse( function ( node ) {
+
+            if ( node.isMesh || node.isLight ) node.castShadow = true;
+            if ( node.isMesh || node.isLight ) node.receiveShadow = true;
+
+        } );
+        
 		scene.add( cloth );
 	},
 	// called while loading is progressing
@@ -164,13 +193,15 @@ loader.load(
 // Lights
 //const light = new THREE.AmbientLight( 0xfaf7f7 ); // soft white light
 //scene.add( light );
-const pointLight = new THREE.PointLight(0xfcfcdf, 1.85)
+//const pointLight = new THREE.PointLight(0xfcfcdf, 1.85)
+const pointLight = new THREE.SpotLight(0xfcfcdf, 1.85);
 pointLight.position.x = -1.88
 pointLight.position.y = 6.36
 pointLight.position.z = 5.06
 scene.add(pointLight)
 
-const pointLight2 = new THREE.PointLight(0xfcfcdf, 1.85)
+const pointLight2 = new THREE.SpotLight(0xfcfcdf, 1.85)
+pointLight2.castShadow = true;
 pointLight2.position.x = 3.76
 pointLight2.position.y = 2.89
 pointLight2.position.z = 5.06
@@ -224,6 +255,7 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     alpha: true
 })
+renderer.shadowMap.enabled = true;
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
