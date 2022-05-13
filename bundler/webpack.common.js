@@ -8,7 +8,7 @@ module.exports = {
     output:
     {
         filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '../dist'),
     },
     devtool: 'source-map',
     plugins:
@@ -19,8 +19,10 @@ module.exports = {
             ]
         }),
         new HtmlWebpackPlugin({
+
+            inject: 'body',
             template: path.resolve(__dirname, '../src/index.html'),
-            minify: true
+            filename: 'index.html',
         }),
         new MiniCSSExtractPlugin()
     ],
@@ -50,25 +52,16 @@ module.exports = {
                 use:
                 [
                     MiniCSSExtractPlugin.loader,
-                    'css-loader'
+                    'css-loader',
+                    'postcss-loader'
                 ]
             },
 
             // Images
             {
-                test: /\.(jpg|png|gif|svg)$/,
-                use:
-                [
-                    {
-                        loader: 'file-loader',
-                        options:
-                        {
-                            outputPath: 'assets/images/'
-                        }
-                    }
-                ]
+                test: /\.(png|jpe?g|gif)$/,
+                type: 'asset/resource',
             },
-
             // Fonts
             {
                 test: /\.(ttf|eot|woff|woff2)$/,

@@ -4,22 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThreeJS Starter</title>
+    <!-- <link href="/dist/output.css" rel="stylesheet"> -->
+
 </head>
 <body>
-    <section class="content">
-        <h1>Welcome packs</h1>
-        <h3>Unbox a new experience.</h3>
-        <p>Scoll this page and you will see a beautiful annimation of the a welcome pack</p>
-        <p class="border">Make your staff feel part of the team with our curated packs. Each box contains carefully chosen products to make employees your best ambassadors. </p>
-        <ul>
-            <li>How does it work?</li>
-            <li>What is there inside?</li>
-            <li>For who is it?</li>
-            <li>Is it available?</li>
-            <li>How this website was made?</li>
-            <li>Library threejs</li>
-        </ul>
+    <section class="content text-center">
+        <div class="banner-image">
+            <div class="relative banner-content m-auto" style="z-index: 54;">
+                <h1>Welcome packs</h1>
+                <h3 class="">Unbox a new experience.</h3>
+            </div>
+           <a id="scroll-down-arrow" href="#about">Scroll Down</a>
+        </div>
+        <div class="edge-top" style="z-index: 50;">
+        </div>
+        <div class="about" style="z-index: 50;">
+            <div class="mb-20 text-2xl">-- WHAT IS IT ABOUT? --</div>
+            <p class="px-8 m-auto pb-20 md:pb-10 w-full md:w-4/6">The welcome packs, the perfect idea to welcome a new collaborator in your company. It is also a perfect gift for someone who want to be your ambassord. With products customized with your own brand, your company will be visible everywhere.</p>
+        </div>
+        <div class="relative h-0" style="background-color: #d3c8b4; z-index: 55; margin-top: -40px; margin-bottom: 20px;">
+            <a href="" class="px-6 py-4 text-sm md:text-xl button-discover">Discover Welcome packs</a>
+        </div>
+        <div class="edge-bot" style="z-index: 50;"></div>
+        <div class="section-bottom pt-20 md:pt-40">
+            <div class="flex gap-4 text-2xl flex-col md:flex-row font-bold mb-20 md:mb-40">
+                <div class="w-full md:w-1/3">
+                    <img src='/static/images/project.png' alt="choose box" class="m-auto h-40">
+                    <div class="py-4">Choose your box</div>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <img src="/static/images/preparation.png" alt="customize" class="m-auto h-40">
+                    <div class="py-4">Customize it</div>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <img src="/static/images/delivery.png" alt="choose box" class="m-auto h-40">
+                    <div class="py-4">Send it!</div>
+                </div>
+              </div>
+               <div class="text-2xl text-black py-10 relative mb-40" style="z-index: 54; background-color: #d3c8b4;">
+                   <div class="text-3xl font-bold">A new member?</div>
+                   <div class="px-8 pt-4">Welcome your new members with a nice detail, a customized pack with cool products</div>
+               </div>
+               <div class="flex text-2xl flex-col md:flex-row items-center" style="background-color: #703e3b;">
+                   <div class="w-full md:w-1/2 hidden md:block">
+                       <img src="https://picsum.photos/id/237/800/500" alt="customize" class="h-80 m-auto">
+                   </div>
+                   <div class="w-80 md:w-1/2">
+                       <h3 class="p-0 md:p-20 text-white">The best way to welcome a new member!</h3>
+                   </div>
+               </div>
+               <div class="mb-20"></div>
+               <p class="px-8 pb-10">
+                    This page is only for showing a 3d object moving when the mouse is scrolling, I hope you liked the experience. As you can see, you can display the text on top or below the 3d object giving a deeper view.
+               </p>
+               <h3 class="pb-10">Thank you for watching</h3>
+        </div>
     </section>
     <canvas class="webgl"></canvas>
+    <script src="main.js"></script>
 </body>
 </html>

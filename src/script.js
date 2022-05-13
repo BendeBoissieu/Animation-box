@@ -1,13 +1,13 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'dat.gui'
+//import * as dat from 'dat.gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { CubeReflectionMapping } from 'three'
 
 var box;
 // Debug
-const gui = new dat.GUI()
+//const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -19,6 +19,7 @@ const scene = new THREE.Scene()
 const loader = new GLTFLoader();
 // Load a glTF resource
 
+var box;
 loader.load(
 	// resource URL
 	'box.gltf',
@@ -253,7 +254,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
      // Call tick again on the next frame
      window.requestAnimationFrame(animate)
 
-     const currentTimeline = window.pageYOffset / 3000
+     const currentTimeline = window.pageYOffset / 2000
 
      const ry = currentTimeline
 
@@ -263,33 +264,59 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
      var mugX
     //  lead.rotation.set(ry, ry/2, 0)
     //  box.rotation.set(ry, ry/2, 0)
-     lead.position.set(0,0.02 + 1.2*ry, 0)
+    if (lead) {
+        if ( sizes.width > 700 ) {
+            lead.position.set(0,0.02 + 0.8*ry, 0)
+        } else {
+            lead.position.set(0,0.02 + 1.1*ry, 0)
+        }
+    }
      //lead.position.set(0,3, 0)
-     box.position.set(0,-ry, 0)
+     if (box) {
+        box.position.set(0,-ry, 0)
+     }
      //camera.lookAt(lead);
-     if ( window.pageYOffset > 200) {
-        const ry2 = (window.pageYOffset - 200) / 3000
+     if ( sizes.width > 700 ) {
+         if ( window.pageYOffset > 200) {
+            const ry2 = (window.pageYOffset - 200) / 2000
+            rotationBoxY = 1.685*ry2
+            notebookX = 0.07 + 2*ry2
+            mugX = -0.27 - 0.01*ry2
+            notebookRotationX = 0.1 + 0.8*ry2
+            lead.rotation.set(0.3*ry2,rotationBoxY, 0 )
+            box.rotation.set(0.3*ry2,rotationBoxY, 0 )
+            cloth.position.set(-0.04- 0.05*ry ,-0.01 - 0.2*ry,  0.16 )
+            cloth.rotation.set(0.1 -0.6*ry2 ,6.27,  0 )
+            notebook.position.set(notebookX- 1.7*ry2,0.05 - 0.2*ry2, 0.05+ 0.2*ry2 )
+            notebook.rotation.set(notebookRotationX,-1.55, notebook.rotation.z )
+            notebook.scale.set(0.08+0.01*ry2,0.08+0.01*ry2,0.08+0.01*ry2)
+            mug.position.set(mugX, 0.01+0.1*ry2 , 0.1+0.4*ry2)
+            mug.rotation.set(-1.1*ry2 ,1*ry2, 0)
+            camera.position.set(0, 0.64-0.4*ry2,0.46)
+         }
+     } else {
+         if (notebook) {
+            notebook.position.set(0.07,0.05-ry/2, 0.05 )
+            notebook.rotation.set(0.1-3*ry/4,-1.55,0 )
+         }
+         if (mug) {
+            mug.position.set(-0.27,0.01-ry/2, 0.1 )
+            mug.rotation.set(-3*ry/4,0, 0 )
+         }
+         if (cloth) {
+            cloth.position.set(-0.04,-0.01-ry/2, 0.16)
+            cloth.rotation.set(0.1-3*ry/4,6.27,0 )
+         }
+         if (box) {
+            box.rotation.set(-3*ry/4,0, 0 )
+         }
 
-        rotationBoxY = 1.685*ry2
-        notebookX = 0.07 + 2*ry2
-        mugX = -0.27 - 0.01*ry2
-        notebookRotationX = 0.1 + 0.8*ry2
-        lead.rotation.set(0.3*ry2,rotationBoxY, 0 )
-        box.rotation.set(0.3*ry2,rotationBoxY, 0 )
-        cloth.position.set(-0.04- 0.05*ry ,-0.01 - 0.2*ry,  0.16 )
-        cloth.rotation.set(0.1 -0.6*ry2 ,6.27,  0 )
-        notebook.position.set(notebookX- 1.7*ry2,0.05 - 0.2*ry2, 0.05+ 0.2*ry2 )
-        notebook.rotation.set(notebookRotationX,-1.55, notebook.rotation.z )
-        notebook.scale.set(0.08+0.01*ry2,0.08+0.01*ry2,0.08+0.01*ry2)
-        mug.position.set(mugX, 0.01+0.1*ry2 , 0.1+0.4*ry2)
-        mug.rotation.set(-1.1*ry2 ,1*ry2, 0)
-        camera.position.set(0, 0.64-0.4*ry2,0.46)
      }
 
 
      //camera.lookAt();
  }
- 
+
  animate()
 //  cloth.rotation.set(0.1,6.27,0 )
 //  cloth.position.set(-0.04,-0.01, 0.16)
