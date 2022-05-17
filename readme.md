@@ -1,6 +1,3 @@
-Threejs boilerplate for starting
+Single page app with a 3d animation while scrolling.
 
-After cloning the project, run npm install
-
-Then to run the server:
-npm run dev 
+https://animation-box.herokuapp.com/
